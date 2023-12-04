@@ -57,3 +57,29 @@ item_generation_pool = [
     {"name": "Risikomanagement-Rucksack", "description": "Tragen Sie Ihre Risiken mit Leichtigkeit."},
     {"name": "Netzwerk-Nadelkissen", "description": "Für die kleinen Stiche im Geschäftsleben."}
 ]
+
+""" 
+Class is used to create objects named "Items" to use as trade objects between player / npc
+name - Name of created Item
+description - funny description of the given item (no functional purpose,, just for the lulz)
+buy_value - determines the price at which it can be bought from the npc
+sell_value - determines the price in the daily sell off at the end of the day
+"""
+
+
+class Items:
+    def __init__(self, name, description, buy_value, sell_value):
+        self.name = name
+        self.description = description
+        self.buy_value = buy_value
+        self.sell_value = sell_value
+
+
+"""
+
+"""
+
+
+def create_item_pool_object(amount_by_difficulty):
+    copy_item_pool_names = item_generation_pool.copy()
+    while amount_by_difficulty > 0:
