@@ -1,5 +1,8 @@
-from .entities import Entity
+from entities import Entity
+from items import items
 import random
+
+
 
 # this list contains all names that are used to generate random npcs at game start
 npc_names_pool = [
@@ -78,6 +81,9 @@ class NPC(Entity):
         super().__init__(name, inventory)
         self.catchphrase = catchphrase
 
+    def __repr__(self):
+        return f"NAME:{self.name}, INVENTORY: {self.inventory}, Catch: {self.catchphrase}"
+
 
 """
 Function creates npc pool, the number of iteration is determined by the difficulty level,
@@ -87,7 +93,12 @@ The formula to determine the amount of npcs is stil to be developed
 
 
 def create_npc_pool(amount_by_difficulty):
-    copy_npc_pool_names = npc_names_pool.copy()
-    while amount_by_difficulty > 0:
-        new_npc_name = random.choice(copy_npc_pool_names)
-        new_npc_item = random.choice(copy_item_pool_names)
+    loop_amount = amount_by_difficulty
+    while loop_amount > 0:
+        new_npc_name = random.choice(npc_names_pool)
+        new_npc_item = random.choice(items.item_pool)
+        new_npc_catchphrase = random.choice(npc_catchphrase_pool)
+        new_npc = NPC(new_npc_name, new_npc_item, new_npc_catchphrase)
+        npc_pool.append(new_npc)
+        loop_amount -= 1
+
