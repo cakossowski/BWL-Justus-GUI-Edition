@@ -105,7 +105,3 @@ def create_item_pool_object():
     new_item_description = select_random_item["description"]
     new_object = Item(new_item_name, new_item_description, random_buy_value, new_sell_value)
     item_pool.append(new_object)
-
-
-create_item_pool_object()
-print(item_pool)
