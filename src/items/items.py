@@ -1,5 +1,6 @@
-# this list contains dicts that have item names and a description, which form the initial pool, where items are from
+import random
 
+# this list contains dicts that have item names and a description, which form the initial pool, where items are from
 item_generation_pool = [
     {"name": "Goldener Taschenrechner", "description": "Unverzichtbar für jede Bilanzberechnung, glänzt im Dunkeln."},
     {"name": "Plüsch-Bull and Bear", "description": "Ein weiches Symbol für die Höhen und Tiefen des Marktes."},
@@ -58,28 +59,53 @@ item_generation_pool = [
     {"name": "Netzwerk-Nadelkissen", "description": "Für die kleinen Stiche im Geschäftsleben."}
 ]
 
-""" 
-Class is used to create objects named "Items" to use as trade objects between player / npc
-name - Name of created Item
-description - funny description of the given item (no functional purpose,, just for the lulz)
-buy_value - determines the price at which it can be bought from the npc
-sell_value - determines the price in the daily sell off at the end of the day
-"""
 
-
-class Items:
+class Item:
+    """
+    Class is used to create objects named "Items" to use as trade objects between player / npc
+    name - Name of created Item
+    description - funny description of the given item (no functional purpose, just for the lulz)
+    buy_value - determines the price at which it can be bought from the npc
+    sell_value - determines the price in the daily sell off at the end of the day
+    """
     def __init__(self, name, description, buy_value, sell_value):
         self.name = name
         self.description = description
         self.buy_value = buy_value
         self.sell_value = sell_value
 
+    # formats object, when converted into string
+    def __str__(self):
+        return f"Item: {self.name} / Description: {self.description} / Values: {self.buy_value} // {self.sell_value}"
 
-"""
+    # formatted string for debugging purposes
+    def __repr__(self):
+        return f"item_name:{self.name}, item_description:{self.description}, buy_value:{self.buy_value}, " \
+               f"sell_value:{self.sell_value}"
 
-"""
+
+# this list contains the item pool that is used during a game, will be filled each time new game starts
+item_pool = []
 
 
-def create_item_pool_object(amount_by_difficulty):
+def create_item_pool_object():
+    """
+    function "create item pool object":
+    - first the starting pool of items is copied, and a random entry will be selected
+    - the name / description of the selection is put into variables
+    - a random buy_value is generated
+    - this buy value will be tripled and used as the sell_value
+    - then a new class Object (Items) is generated and put into the usable item pool
+    """
     copy_item_pool_names = item_generation_pool.copy()
-    while amount_by_difficulty > 0:
+    select_random_item = random.choice(copy_item_pool_names)
+    random_buy_value = random.randrange(25, 101, 5)
+    new_sell_value = random_buy_value * 3
+    new_item_name = select_random_item["name"]
+    new_item_description = select_random_item["description"]
+    new_object = Item(new_item_name, new_item_description, random_buy_value, new_sell_value)
+    item_pool.append(new_object)
+
+
+create_item_pool_object()
+print(item_pool)
