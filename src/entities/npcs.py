@@ -85,14 +85,12 @@ class NPC(Entity):
         return f"NAME:{self.name}, INVENTORY: {self.inventory}, Catch: {self.catchphrase}"
 
 
-"""
-Function creates npc pool, the number of iteration is determined by the difficulty level,
-which is given at the start of a game and chosen by player.
-The formula to determine the amount of npcs is stil to be developed
-"""
-
-
 def create_npc_pool(amount_by_difficulty):
+    """
+    Function creates npc pool, the number of iteration is determined by the difficulty level,
+    which is given at the start of a game and chosen by player.
+    The formula to determine the amount of npcs is still to be developed
+    """
     loop_amount = amount_by_difficulty
     while loop_amount > 0:
         new_npc_name = random.choice(npc_names_pool)
@@ -101,4 +99,6 @@ def create_npc_pool(amount_by_difficulty):
         new_npc = NPC(new_npc_name, new_npc_item, new_npc_catchphrase)
         npc_pool.append(new_npc)
         loop_amount -= 1
+
+
 
